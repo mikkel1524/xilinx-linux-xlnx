@@ -234,14 +234,14 @@ static int __init root_nfs_data(char *cmdline)
 	strcpy(tmp, NFS_ROOT);
 
 	if (root_server_path[0] != '\0') {
-		dprintk("Root-NFS: DHCPv4 option 17: %s\n",
+		pr_err("mikkel: Root-NFS: DHCPv4 option 17: [%s]\n",
 			root_server_path);
 		if (root_nfs_parse_options(root_server_path, tmp, tmplen))
 			goto out_optionstoolong;
 	}
 
 	if (cmdline[0] != '\0') {
-		dprintk("Root-NFS: nfsroot=%s\n", cmdline);
+		pr_err("mikkel: Root-NFS: nfsroot=[%s]\n", cmdline);
 		if (root_nfs_parse_options(cmdline, tmp, tmplen))
 			goto out_optionstoolong;
 	}

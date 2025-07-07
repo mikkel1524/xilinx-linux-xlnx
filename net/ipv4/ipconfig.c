@@ -922,10 +922,10 @@ static void __init ic_do_bootp_ext(u8 *ext)
 
 	u8 *c;
 
-	pr_debug("DHCP/BOOTP: Got extension %d:", *ext);
+	pr_err("mikkel: ic_do_bootp_ext: DHCP/BOOTP: Got extension %d:", *ext);
 	for (c=ext+2; c<ext+2+ext[1]; c++)
-		pr_debug(" %02x", *c);
-	pr_debug("\n");
+		pr_err(" %02x", *c);
+	pr_err("\n");
 
 	switch (*ext++) {
 	case 1:		/* Subnet mask */
@@ -961,6 +961,9 @@ static void __init ic_do_bootp_ext(u8 *ext)
 		if (!root_server_path[0])
 			ic_bootp_string(root_server_path, ext+1, *ext,
 					sizeof(root_server_path));
+
+		pr_err("mikkel: ic_do_bootp_ext: root_server_path [%s]:", root_server_path);
+
 		break;
 	case 26:	/* Interface MTU */
 		memcpy(&mtu, ext+1, sizeof(mtu));
@@ -1481,7 +1484,7 @@ static int __init ip_auto_config(void)
 #endif
 	int err;
 	unsigned int i, count;
-
+	pr_err("mikkel: ip_auto_config: root_server_path: [%s]", root_server_path);
 	/* Initialise all name servers and NTP servers to NONE (but only if the
 	 * "ip=" or "nfsaddrs=" kernel command line parameters weren't decoded,
 	 * otherwise we'll overwrite the IP addresses specified there)
