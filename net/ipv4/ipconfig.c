@@ -1581,6 +1581,7 @@ static int __init ip_auto_config(void)
 		ic_dev = ic_first_dev;
 	}
 
+	pr_err("mikkel: root_nfs_parse_addr")
 	addr = root_nfs_parse_addr(root_server_path);
 	if (root_server_addr == NONE)
 		root_server_addr = addr;
