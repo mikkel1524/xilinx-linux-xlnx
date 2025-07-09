@@ -139,7 +139,7 @@ static int __init nfs_root_setup(char *line)
 	ROOT_DEV = Root_NFS;
 ///tftpboot/nfs
 //nfs_root_parms
-	strscpy(root_server_path, nfs_root_parms, 256);
+	// strscpy(root_server_path, nfs_root_parms, 256);
 	if (line[0] == '/' || line[0] == ',' || (line[0] >= '0' && line[0] <= '9')) {
 		strscpy(nfs_root_parms, line, sizeof(nfs_root_parms));
 		
