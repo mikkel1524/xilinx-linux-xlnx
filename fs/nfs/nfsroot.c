@@ -137,14 +137,18 @@ __setup("nfsrootdebug", nfs_root_debug);
 static int __init nfs_root_setup(char *line)
 {
 	ROOT_DEV = Root_NFS;
-
+///tftpboot/nfs
+//nfs_root_parms
+	strscpy(root_server_path, nfs_root_parms, 256);
 	if (line[0] == '/' || line[0] == ',' || (line[0] >= '0' && line[0] <= '9')) {
 		strscpy(nfs_root_parms, line, sizeof(nfs_root_parms));
+		
 	} else {
 		size_t n = strlen(line) + sizeof(NFS_ROOT) - 1;
 		if (n >= sizeof(nfs_root_parms))
 			line[sizeof(nfs_root_parms) - sizeof(NFS_ROOT) - 2] = '\0';
 		sprintf(nfs_root_parms, NFS_ROOT, line);
+		// strscpy(root_server_path, NFS_ROOT, line);
 	}
 
 	/*
@@ -155,6 +159,7 @@ static int __init nfs_root_setup(char *line)
 	 *	 nfs_root_parms, if it exists.
 	 */
 	root_server_addr = root_nfs_parse_addr(nfs_root_parms);
+	// mikkel: nfs_root_setup: nfs_root_parms = [/tftpboot/nfs,tcp], line = [192.168.64.32:/tftpboot/nfs,tcp]
 	pr_err("mikkel: nfs_root_setup: nfs_root_parms = [%s], line = [%s]", nfs_root_parms, line);
 	return 1;
 }
@@ -232,7 +237,7 @@ static int __init root_nfs_data(char *cmdline)
 	if (tmp == NULL)
 		goto out_nomem;
 	strcpy(tmp, NFS_ROOT);
-
+	pr_err("mikkel: root_nfs_data: root_server_path: [%s], cmdline: [%s]", root_server_path, cmdline);
 	if (root_server_path[0] != '\0') {
 		pr_err("mikkel: Root-NFS: DHCPv4 option 17: [%s]\n",
 			root_server_path);

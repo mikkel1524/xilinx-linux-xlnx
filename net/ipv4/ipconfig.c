@@ -1484,6 +1484,7 @@ static int __init ip_auto_config(void)
 #endif
 	int err;
 	unsigned int i, count;
+	// mikkel: ip_auto_config: root_server_path: []
 	pr_err("mikkel: ip_auto_config: root_server_path: [%s]", root_server_path);
 	/* Initialise all name servers and NTP servers to NONE (but only if the
 	 * "ip=" or "nfsaddrs=" kernel command line parameters weren't decoded,
@@ -1583,8 +1584,8 @@ static int __init ip_auto_config(void)
 		/* Device selected manually or only one device -> use it */
 		ic_dev = ic_first_dev;
 	}
-
-	pr_err("mikkel: root_nfs_parse_addr");
+	pr_err("mikkel: ip_auto_config2: root_server_path: [%s]", root_server_path);
+	// pr_err("mikkel: root_nfs_parse_addr");
 	addr = root_nfs_parse_addr(root_server_path);
 	if (root_server_addr == NONE)
 		root_server_addr = addr;
